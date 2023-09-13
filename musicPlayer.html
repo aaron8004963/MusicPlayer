@@ -21,7 +21,7 @@
 
     <!-- BV Section -->
     <video autoplay muted loop id="video-background">
-        <source src="video/bg1.mp4" type="video/mp4">
+        <source src="video/street.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
@@ -85,7 +85,7 @@
     <section id="hero-container">
         <!-- Hero Section -->
         <div id="hero" class="align-items-center">
-            <h1 id="HelloMessage">Welcome to My Portfolio</h1>
+            <h1 id="HelloMessage">Life is a cup of music</h1>
             <p id="description" class="lead">Software Engineering &amp; Web Development</p>
         </div>
 
@@ -98,39 +98,38 @@
     <section>
         <div id="musicPlayer-container">
             <!-- Music List Section (left 1/5 portion) -->
-            <div id="music-list" style="width: 20%; background-color: #f0f0f0; overflow-y: scroll;">
-                <ul>
-                    <!-- Your music list items go here -->
-                    <li>1. Song Title 1</li>
-                    <li>2. Song Title 2</li>
-                    <!-- Add more songs as needed -->
+            <div id="music-list-container" >
+                <ul id = "music-list">
+                    <!-- music list items  -->
+                    <li class = "music-list-item"><button class = "music-button">1. Song Title 1</button></li>
+                    <li class = "music-list-item"><button class = "music-button">2. Song Title 2</button></li>
                 </ul>
             </div>
         
             <!-- Video and Controls Section (right 4/5 portion) -->
-            <div id="video-controls" style="width: 80%; background-color: #000; position: relative;">
+            <div id="video-container">
                 <!-- Video Player -->
-                <video id="video-player" autoplay muted loop style="width: 100%; height: 100%;">
-                    <source src="your-video.mp4" type="video/mp4">
+                <video id="video-player" autoplay muted loop>
+                    <source src="video\wsy.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
         
                 <!-- Footer with Playback Controls and Show Lyrics Button -->
-                <div id="footer" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 0, 0.7); padding: 10px; display: flex; justify-content: space-between;">
+                <div id="footer">
                     <!-- Playback Controls (Play, Pause, Volume, etc.) -->
-                    <div id="playback-controls" style="display: flex; align-items: center;">
-                        <button id="play-button">Play</button>
-                        <button id="pause-button">Pause</button>
+                    <div id="playback-controls">
+                        <button id="play-button" class = "controls-button">Play</button>
+                        <button id="pause-button" class = "controls-button">Pause</button>
                         <input id="volume-control" type="range" min="0" max="1" step="0.1" value="0.5">
                     </div>
                     
                     <!-- Show Lyrics Button (Click to toggle lyrics display) -->
-                    <button id="show-lyrics-button">Show Lyrics</button>
+                    <button id="show-lyrics-button" class = "controls-button">Show Lyrics</button>
                 </div>
             </div>
         
             <!-- Lyrics Section (Initially hidden, replaces video when shown) -->
-            <div id="lyrics" style="width: 80%; background-color: #fff; position: absolute; bottom: 0; left: 0; right: 0; display: none;">
+            <div id="lyrics">
                 <!-- Lyrics content goes here -->
                 <p>These are the lyrics for the currently playing song.</p>
             </div>

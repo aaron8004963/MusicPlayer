@@ -173,6 +173,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 //*********************************************************************************************************/
+/* SCroll button */
 document.addEventListener('DOMContentLoaded', function() {
     // Get the arrow element
     const scrollArrow = document.getElementById('scroll-arrow');
