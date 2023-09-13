@@ -26,58 +26,58 @@
     </video>
 
     <!-- Navbar Section -->
-    <section id = "navbar-container">
-            <!-- Navigation Section -->
-            <nav class="navbar navbar-expand-lg navbar-dark navbar-transparent">
-                <div id="topNav" class="container">
-                    <a class="navbar-brand" href="#">Aaron Li</a> <!-- Make this a link to the homepage -->
-                    <!-- Toggle button for small screens -->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <button id="calendar-button" class="nav-link nav-button" data-toggle="modal"
-                                    data-target="#calendarModal">
-                                    Calendar
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button id="search-button" class="nav-link nav-button">
-                                    Search
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button id="lyrics-button" class="nav-link nav-button">
-                                    Lyrics: Off
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button id="sound-control" class="nav-link nav-button">
-                                    Sound: Off
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-    
-            <!-- Modal -->
-            <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="calendarModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+    <section id="navbar-container">
+        <!-- Navigation Section -->
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-transparent">
+            <div id="topNav" class="container">
+                <a class="navbar-brand" href="#">Aaron Li</a> <!-- Make this a link to the homepage -->
+                <!-- Toggle button for small screens -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <button id="calendar-button" class="nav-link nav-button" data-toggle="modal"
+                                data-target="#calendarModal">
+                                Calendar
                             </button>
-                            <iframe id="calendar-iframe" src="calendar.html" frameborder="0" scrolling="no"></iframe>
-                        </div>
+                        </li>
+                        <li class="nav-item">
+                            <button id="search-button" class="nav-link nav-button">
+                                Search
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button id="lyrics-button" class="nav-link nav-button">
+                                Lyrics: Off
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button id="sound-control" class="nav-link nav-button">
+                                Sound: Off
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Modal -->
+        <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="calendarModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <iframe id="calendar-iframe" src="calendar.html" frameborder="0" scrolling="no"></iframe>
                     </div>
                 </div>
             </div>
+        </div>
 
     </section>
 
@@ -98,14 +98,14 @@
     <section>
         <div id="musicPlayer-container">
             <!-- Music List Section (left 1/5 portion) -->
-            <div id="music-list-container" >
-                <ul id = "music-list">
+            <div id="music-list-container">
+                <ul id="music-list">
                     <!-- music list items  -->
-                    <li class = "music-list-item"><button class = "music-button">1. Song Title 1</button></li>
-                    <li class = "music-list-item"><button class = "music-button">2. Song Title 2</button></li>
+                    <li class="music-list-item"><button class="music-button">1. Song Title 1</button></li>
+                    <li class="music-list-item"><button class="music-button">2. Song Title 2</button></li>
                 </ul>
             </div>
-        
+
             <!-- Video and Controls Section (right 4/5 portion) -->
             <div id="video-container">
                 <!-- Video Player -->
@@ -113,30 +113,28 @@
                     <source src="video\wsy.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-        
+
                 <!-- Footer with Playback Controls and Show Lyrics Button -->
                 <div id="footer">
                     <!-- Playback Controls (Play, Pause, Volume, etc.) -->
-                    <div id="playback-controls">
-                        <button id="play-button" class = "controls-button">Play</button>
-                        <button id="pause-button" class = "controls-button">Pause</button>
+                    <div id="controls-container">
+                        <button id="play-button" class="controls-button">Play</button>
+                        <button id="pause-button" class="controls-button">Pause</button>
                         <input id="volume-control" type="range" min="0" max="1" step="0.1" value="0.5">
+                        <button id="show-lyrics-button" class="controls-button">Show Lyrics</button>
                     </div>
-                    
-                    <!-- Show Lyrics Button (Click to toggle lyrics display) -->
-                    <button id="show-lyrics-button" class = "controls-button">Show Lyrics</button>
                 </div>
             </div>
-        
+
             <!-- Lyrics Section (Initially hidden, replaces video when shown) -->
             <div id="lyrics">
                 <!-- Lyrics content goes here -->
                 <p>These are the lyrics for the currently playing song.</p>
             </div>
         </div>
-        
+
     </section>
-   
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

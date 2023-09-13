@@ -223,7 +223,7 @@ body {
 }
 
 #music-list-container {
-  background-color: rgb(127, 144, 255);
+  background-color: rgb(41, 41, 41);
   width: 20%;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
@@ -263,15 +263,17 @@ body {
 
 #video-container {
   width: 80%;
-  background-color: rgba(127, 144, 255, 0.405);
+  background-color: rgba(245, 245, 245, 0.307);
   position: relative;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
 
 #video-player {
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: 90%;
+  overflow: hidden;
 }
 
 #footer {
@@ -279,16 +281,21 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(127, 144, 255, 0.405);
-  padding: 10px;
+  background-color: rgb(57, 57, 57);
   display: flex;
+  height: 10%;
   justify-content: space-between;
   border-bottom-right-radius: 20px;
+  align-items: center;
+  width: 100%;
 }
 
-#playback-controls {
+#controls-container {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Push buttons to the left and right edges */
+  width: 100%;
+  overflow: hidden;
 }
 
 .controls-button {
@@ -298,11 +305,35 @@ body {
   cursor: pointer;
   transition: color 0.2s, background-color 0.2s;
   font-weight: normal;
-  padding: 0.5em;
   border-radius: 4px;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  width: 4em;
+  margin: 0 3%;
+  height: 80%;
+}
+
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+    .controls-button {
+      /* Adjust button size for smaller screens */
+      width: 3%;
+      height: 60%;
+      margin: 0 2%;
+    }
+  }
+  
+  /* Media query for screens smaller than 576px */
+  @media (max-width: 576px) {
+    .controls-button {
+      /* Further adjust button size for even smaller screens */
+      width: 2.5%;
+      height: 50%;
+      margin: 0 1%;
+    }
+  }
+
+#show-lyrics-button {
+  right: 0;
 }
 
 .controls-button:hover {
