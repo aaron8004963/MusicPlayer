@@ -51,3 +51,5 @@ function closeNavbarOnResize() {
 
 // Add a resize event listener to close the navbar collapse on window resize
 window.addEventListener('resize', closeNavbarOnResize);
+
+//*********************************************************************************************************/
