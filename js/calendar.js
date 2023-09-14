@@ -202,7 +202,7 @@ var musicData = {};
 
         //*********************************************************************************************************/
 
-        // Function to update the music details when a day is clicked
+        // Function to update the music details when a day in calendar is clicked
         function updateMusicDetails(date) {
             var selectedDate = date;
             var musicInfo = musicData[selectedDate];

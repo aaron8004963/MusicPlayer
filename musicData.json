@@ -1,12 +1,23 @@
 {
     "2023-09-10": {
-        "title": "Leaves",
+        "title": "StarNight",
         "source": "music/singleRomantic.ogg",
-        "video": "video/leaves.mp4" 
+        "video": "video/starNight.mp4" 
     },
-    "2023-09-15": {
+    "2023-09-11": {
         "title": "wsy",
         "source": "music/slow-snow.mp3",
         "video": "video/wsy.mp4" 
+    },
+    "2023-09-12": {
+        "title": "sweet",
+        "source": "music/Sweet.mp3",
+        "video": "video/toKyoGirl.mp4" 
+    },
+    "2023-09-13": {
+        "title": "Night Piano 5",
+        "source": "music/nightPiano.mp3",
+        "video": "video/nightPiano.mp4" 
     }
+
 }

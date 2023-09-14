@@ -4,6 +4,10 @@ var musicData = {};
 (function ($) {
     "use strict";
 
+    // Global variables for background music and button music
+    var bgMusic = document.getElementById("bg-music");
+    var buttonAudio = document.getElementById("button-audio");;
+
     document.addEventListener('DOMContentLoaded', function () {
         // ...
 
@@ -62,9 +66,14 @@ var musicData = {};
 
         // Function to play music and video
         function playMusicAndVideo(musicSource, videoSource) {
-            var audio = document.getElementById("bg-music");
-            audio.src = musicSource;
-            audio.play();
+            // Pause the background music
+            bgMusic.pause();
+
+            // Set the buttonAudio source to the clicked music
+            buttonAudio.src = musicSource;
+            
+            // Play the button's music
+            buttonAudio.play();
 
             var videoPlayer = document.getElementById("video-player");
             videoPlayer.src = videoSource;
@@ -196,20 +205,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //*********************************************************************************************************/
-
-//Sound button
+// Sound button
 document.addEventListener("DOMContentLoaded", function () {
-    const bgMusic = document.getElementById("bg-music");
     const soundControl = document.getElementById("sound-control");
 
-    // Function to toggle sound
+    // Function to toggle sound mute/unmute for all audio elements
     function toggleSound() {
-        if (bgMusic.paused) {
-            bgMusic.play();
-            soundControl.textContent = "Sound: On";
-        } else {
-            bgMusic.pause();
+        const audioElements = document.querySelectorAll("audio");
+
+        audioElements.forEach(function (audio) {
+            if (audio.muted) {
+                audio.muted = false;
+            } else {
+                audio.muted = true;
+            }
+        });
+
+        // Toggle the text content of the sound control button
+        if (audioElements[0].muted) {
             soundControl.textContent = "Sound: Off";
+        } else {
+            soundControl.textContent = "Sound: On";
         }
     }
 
@@ -217,27 +233,24 @@ document.addEventListener("DOMContentLoaded", function () {
     soundControl.addEventListener("click", toggleSound);
 });
 
+
 //*********************************************************************************************************/
 // Listen for messages from calendar and paly music if sound on
 window.addEventListener('message', function (event) {
     if (event.data.type === 'changeMusic') {
-        // Change the background music source
-        var bgMusic = document.getElementById('bg-music');
-        bgMusic.src = event.data.source;
-        bgMusic.load();
-        // Check if sound is enabled
-        var soundControl = document.getElementById('sound-control');
-        var isSoundEnabled = soundControl.textContent.includes('Sound: On');
-        if (isSoundEnabled) {
-            bgMusic.play();
-        }else{
-            bgMusic.pause();
-        }
+// Find the button with the same source and trigger a click event
+var musicButtons = document.querySelectorAll('.music-button');
+for (var i = 0; i < musicButtons.length; i++) {
+    if (musicButtons[i].getAttribute('data-source') === event.data.source) {
+        musicButtons[i].click(); // Trigger a click event on the button
+        break; // Stop iterating once the matching button is found
+    }
+}
     }
 });
 
 //*********************************************************************************************************/
-
+/* fading hero container */
 document.addEventListener("DOMContentLoaded", function() {
     const hero = document.getElementById("hero-container");
     const navbarHeight = document.querySelector(".navbar").offsetHeight+200;

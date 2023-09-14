@@ -15,11 +15,14 @@
 </head>
 
 <body>
-    <!-- BA Section -->
+    <!-- Backgound music Section -->
     <audio id="bg-music" loop>
         <source src="music\singleRomantic.ogg" type="audio/mpeg">
         Your browser does not support the audio tag.
     </audio>
+
+    <!-- Button Music Section -->
+    <audio id="button-audio" preload="auto"></audio>
 
     <!-- BV Section -->
     <video autoplay muted loop id="video-background">
@@ -118,7 +121,6 @@
                     <!-- Playback Controls (Play, Pause, Volume, etc.) -->
                     <div id="controls-container">
                         <button id="play-button" class="controls-button">Play</button>
-                        <button id="pause-button" class="controls-button">Pause</button>
                         <input id="volume-control" type="range" min="0" max="1" step="0.1" value="0.5">
                         <button id="show-lyrics-button" class="controls-button">Show Lyrics</button>
                     </div>
