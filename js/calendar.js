@@ -5,7 +5,6 @@ var musicData = {};
     "use strict";
 
     document.addEventListener('DOMContentLoaded', function () {
-        // ...
 
         // Function to load music data from JSON file
         function loadMusicData(callback) {
@@ -23,11 +22,9 @@ var musicData = {};
         // Load music data from the JSON file
         loadMusicData(function () {
             // Now, musicData is populated with data from the JSON file
-            // You can use it as before
             console.log(musicData);
         });
 
-        // ...
 
     }, false);
 })(jQuery);
