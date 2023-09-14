@@ -11,10 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Petit+Formal+Script&family=Press+Start+2P&display=swap" rel="stylesheet">    <script src="https://kit.fontawesome.com/69efd88cc8.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Petit+Formal+Script&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/69efd88cc8.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/password.css">
+    <script src="js/password.js"></script>
 </head>
 
 <body>
+    
     <!-- Backgound music Section -->
     <audio id="bg-music" loop>
         <source src="music\singleRomantic.ogg" type="audio/ogg">
@@ -23,6 +27,28 @@
 
     <!-- Button Music Section -->
     <audio id="button-audio" preload="auto"></audio>
+
+    <section id="blockscreen">
+        <div id="index" style="background-color: black;">
+			
+			<p id="terminal1" class="terminal">CENTROLIZED //..TERMINAL..//</p>
+			<p id="terminal2" class="terminal">INITIALIZING //..TERMINAL..//</p>
+			<p id="terminal3" class="terminal">//CLASSFILE.SET //TRUE//</p>
+			<p id="terminal4" class="terminal">//LOADING ..DATA..</p>
+			<p id="terminal5" class="terminal">//DESTINATION.GET //LOCAL//</p>
+			<p id="terminal6" class="terminal">..</p>
+			<p id="terminal7" class="terminal">..Github Desktop Plateform</p>
+			<p id="terminal8" class="terminal">..YEAR 2023</p>
+			<p id="terminal9" class="terminal">..WELCOME</p>
+			
+			<div id="indexshow" style="background-color: black;">
+				<button onclick="terminal(); openFullscreen(); indexshow();" style="position:absolute; left:0px; top:0px; bottom: 0px; right: 0px; width: 100%; opacity: 0;"></button>
+			</div>
+			
+			<div id="password">
+				<input type="password" id="next" onkeydown="if (event.keyCode == 51) next();" style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); opacity: 0.5; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);"/>
+			</div>
+    </section>
 
     <!-- BV Section -->
     <video autoplay muted loop id="video-background">
