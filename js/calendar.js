@@ -1,15 +1,40 @@
-// Define music data for each day
-var musicData = {
-    "2023-09-10": {
-        title: "Music 1",
-        source: "music/singleRomantic.ogg"
-    },
-    "2023-09-15": {
-        title: "Music 2",
-        source: "music/slow-snow.mp3"
-    },
-   /* ... */
-};
+// Initialize var musicData by reading from JSON file
+var musicData = {};
+
+(function ($) {
+    "use strict";
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // ...
+
+        // Function to load music data from JSON file
+        function loadMusicData(callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    musicData = JSON.parse(xhr.responseText);
+                    callback();
+                }
+            };
+            xhr.open('GET', 'musicData.json', true);
+            xhr.send();
+        }
+
+        // Load music data from the JSON file
+        loadMusicData(function () {
+            // Now, musicData is populated with data from the JSON file
+            // You can use it as before
+            console.log(musicData);
+        });
+
+        // ...
+
+    }, false);
+})(jQuery);
+
+//*********************************************************************************************************/
+
+
 
 (function ($) {
 
@@ -25,7 +50,6 @@ var musicData = {
             selectedDay,
             setDate,
             daysLen = days.length;
-        // options should like '2014-01-01'
         function Calendar(selector, options) {
             this.options = options;
             this.draw();
@@ -179,7 +203,6 @@ var musicData = {
         //*********************************************************************************************************/
 
         // Function to update the music details when a day is clicked
-        // Function to update the music details when a day is clicked
         function updateMusicDetails(date) {
             var selectedDate = date;
             var musicInfo = musicData[selectedDate];
@@ -201,8 +224,6 @@ var musicData = {
                 musicDetails.innerHTML = '<p>No music available for this day.</p>';
             }
         }
-
-
 
         // Add click event listeners to calendar days
         var calendarDays = document.querySelectorAll('#calendar tbody td');

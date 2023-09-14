@@ -33,7 +33,7 @@ body {
 }
 
 .navbar-brand {
-  font-family: "ArquitectaHeavy";
+  font-family: 'Cormorant Garamond', serif;
   font-size: 22px;
   line-height: 100%;
   text-transform: uppercase;
@@ -137,7 +137,7 @@ body {
 }
 
 #hero h1 {
-  font-family: "Nova Slim", cursive;
+    font-family: 'Petit Formal Script', cursive;
   font-size: 48px;
   line-height: 1.7em;
   text-transform: uppercase; /* Capitalize all letters */
@@ -145,7 +145,8 @@ body {
 }
 
 #hero p {
-  color: white;
+    font-family: 'Cormorant Garamond', serif;
+    color: white;
 }
 /* fading out */
 .fade-out {

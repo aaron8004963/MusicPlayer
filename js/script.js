@@ -1,3 +1,83 @@
+// Initialize var musicData by reading from JSON file
+var musicData = {};
+
+(function ($) {
+    "use strict";
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // ...
+
+        // Function to load music data from JSON file
+        function loadMusicData(callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    musicData = JSON.parse(xhr.responseText);
+                    callback();
+                }
+            };
+            xhr.open('GET', 'musicData.json', true);
+            xhr.send();
+        }
+
+        // Load music data from the JSON file
+        loadMusicData(function () {
+            // Now, musicData is populated with data from the JSON file
+            // You can use it as before
+            console.log(musicData);
+
+            // Call the function to assign music data to buttons
+            assignMusicDataToButtons();
+        });
+
+        // Function to assign music data to music list buttons
+        function assignMusicDataToButtons() {
+            var musicList = document.getElementById("music-list");
+
+            // Sort the musicData by date in descending order (newest first)
+            var sortedDates = Object.keys(musicData).sort(function (a, b) {
+                return new Date(b) - new Date(a);
+            });
+
+            sortedDates.forEach(function (date, index) {
+                var musicInfo = musicData[date];
+                var listItem = document.createElement("li");
+                listItem.className = "music-list-item"; // Set the class for <li>
+
+                var button = document.createElement("button");
+                button.className = "music-button";
+                button.textContent = index + 1 + ". " + musicInfo.title;
+                button.setAttribute("data-source", musicInfo.source);
+                button.setAttribute("data-video", musicInfo.video); // Add video source to button
+                button.addEventListener("click", function () {
+                    var source = this.getAttribute("data-source");
+                    var videoSource = this.getAttribute("data-video"); // Get video source
+                    playMusicAndVideo(source, videoSource);
+                });
+
+                listItem.appendChild(button);
+                musicList.appendChild(listItem); // Append <li> to the <ul>
+            });
+        }
+
+        // Function to play music and video
+        function playMusicAndVideo(musicSource, videoSource) {
+            var audio = document.getElementById("bg-music");
+            audio.src = musicSource;
+            audio.play();
+
+            var videoPlayer = document.getElementById("video-player");
+            videoPlayer.src = videoSource;
+            videoPlayer.play();
+        }
+
+        // ...
+
+    }, false);
+})(jQuery);
+
+
+
 //*********************************************************************************************************/
 
 //navbar collapse close
@@ -197,3 +277,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initially hide the arrow when the page loads
     toggleArrowVisibility();
 });
+
+//*********************************************************************************************************/
