@@ -185,6 +185,7 @@ body {
 
 /*********************************************************************************************************/
 
+/*css for musicPlayer*/
 #musicPlayer-container {
   margin: auto;
   padding: 2rem;
@@ -223,6 +224,7 @@ body {
   }
 }
 
+/* music list */
 #music-list-container {
   background-color: rgb(41, 41, 41);
   width: 20%;
@@ -241,19 +243,20 @@ body {
   margin-bottom: 5%;
   text-align: center;
 }
-
+  
 .music-button {
   background-color: transparent;
   color: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  cursor: pointer;
-  transition: color 0.2s, background-color 0.2s;
+  /* border: 1px solid rgba(255, 255, 255, 0.4); */
+  border:none;
   font-weight: normal;
   padding: 0.5em;
   border-radius: 4px;
   transition: all 0.3s ease;
   text-transform: uppercase;
   width: 90%;
+  text-align: left;
+  cursor:pointer
 }
 
 .music-button:hover {

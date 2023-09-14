@@ -9,7 +9,6 @@ var musicData = {};
     var buttonAudio = document.getElementById("button-audio");;
 
     document.addEventListener('DOMContentLoaded', function () {
-        // ...
 
         // Function to load music data from JSON file
         function loadMusicData(callback) {
@@ -26,19 +25,17 @@ var musicData = {};
 
         // Load music data from the JSON file
         loadMusicData(function () {
-            // Now, musicData is populated with data from the JSON file
-            // You can use it as before
             console.log(musicData);
 
             // Call the function to assign music data to buttons
             assignMusicDataToButtons();
         });
 
-        // Function to assign music data to music list buttons
+        // Function that assigns music data to music list buttons
         function assignMusicDataToButtons() {
             var musicList = document.getElementById("music-list");
 
-            // Sort the musicData by date in descending order (newest first)
+            // Sort the musicData by date from newest to oldest
             var sortedDates = Object.keys(musicData).sort(function (a, b) {
                 return new Date(b) - new Date(a);
             });
