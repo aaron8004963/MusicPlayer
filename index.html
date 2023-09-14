@@ -17,7 +17,7 @@
 <body>
     <!-- Backgound music Section -->
     <audio id="bg-music" loop>
-        <source src="music\singleRomantic.ogg" type="audio/mpeg">
+        <source src="music\singleRomantic.ogg" type="audio/ogg">
         Your browser does not support the audio tag.
     </audio>
 
@@ -100,8 +100,8 @@
         </a>
     </section>
 
-    <section>
-        <div id="musicPlayer-container">
+    <section id="musicPlayer-container">
+        <div id="musicPlayer">
             <!-- Music List Section (left 1/5 portion) -->
             <div id="music-list-container">
                 <ul id="music-list">
@@ -111,9 +111,7 @@
             <!-- Video and Controls Section (right 4/5 portion) -->
             <div id="video-container">
                 <!-- Video Player -->
-                <video id="video-player" autoplay muted loop>
-                    <source src="video\wsy.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
+                <video id="video-player" muted loop>
                 </video>
 
                 <!-- Footer with Playback Controls and Show Lyrics Button -->
@@ -140,7 +138,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="js/script.js"></script>
+
+    <script src="js/musicPlayer-container.js"></script>
+    <script src="js/hero-container.js"></script>
+    <script src="js/navbar-container.js"></script>
+    
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 </body>
