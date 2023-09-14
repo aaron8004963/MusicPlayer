@@ -59,12 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
             behavior: 'smooth',
         });
     });
-
-    // Add a scroll event listener to toggle arrow visibility
-    window.addEventListener('scroll', toggleArrowVisibility);
-
-    // Initially hide the arrow when the page loads
-    toggleArrowVisibility();
 });
 
 //*********************************************************************************************************/
