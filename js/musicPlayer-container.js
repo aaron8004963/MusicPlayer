@@ -44,12 +44,16 @@
                    // Create a button element
                    var button = document.createElement("button");
                    button.className = "music-button";
-                   var textWrapper = document.createElement("div");
-                   textWrapper.className = "button-text";
-                   textWrapper.textContent = index + 1 + ". " + musicInfo.title;
+                   var indexBox = document.createElement("div");
+                   indexBox.className = "index-wrapper";
+                   indexBox.textContent = index + 1 + ".";
+                   var textBox = document.createElement("div");
+                   textBox.className = "button-textBox";
+                   textBox.textContent = musicInfo.title;
                    button.setAttribute("data-source", musicInfo.source);
                    button.setAttribute("data-video", musicInfo.video);
-                   button.appendChild(textWrapper);
+                   button.appendChild(indexBox);
+                   button.appendChild(textBox);
 
                    // Create play logo
                    var playLogo = document.createElement("span");
@@ -149,7 +153,7 @@
                    // Check for overflow and apply animation
                    var musicButtons = document.querySelectorAll(".music-button");
                    musicButtons.forEach(function (button) {
-                       var buttonText = button.querySelector(".button-text");
+                       var buttonText = button.querySelector(".button-textBox");
                        var playLogo = button.querySelector(".play-logo");
                        var availableSpace = button.offsetWidth - playLogo.offsetWidth;
                        if (buttonText.scrollWidth > availableSpace) {
