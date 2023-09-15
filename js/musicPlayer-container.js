@@ -1,159 +1,177 @@
-// Initialize var musicData by reading from JSON file
-var musicData = {};
-var bgMusic = document.getElementById("bg-music");
-bgMusic.volume = 0.02;
 
-(function ($) {
-    "use strict";
+       // Initialize var musicData by reading from JSON file
+       var musicData = {};
+       var bgMusic = document.getElementById("bg-music");
+       bgMusic.volume = 0.02;
 
-    var buttonAudio = document.getElementById("button-audio");
-    var videoPlayer = document.getElementById("video-player");
-    var playButton = document.getElementById("play-button");
+       (function ($) {
+           "use strict";
 
-    var currentMusicButton = null;
+           var buttonAudio = document.getElementById("button-audio");
+           var videoPlayer = document.getElementById("video-player");
+           var playButton = document.getElementById("play-button");
 
-    // load music data from JSON
-    function loadMusicData(callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                musicData = JSON.parse(xhr.responseText);
-                callback();
-            }
-        };
-        xhr.open('GET', 'musicData.json', true);
-        xhr.send();
-    }
+           var currentMusicButton = null;
 
-    // Assigns each button with data and event listener
-    function assignMusicDataToButtons() {
-        var musicList = document.getElementById("music-list");
+           // load music data from JSON
+           function loadMusicData(callback) {
+               var xhr = new XMLHttpRequest();
+               xhr.onreadystatechange = function () {
+                   if (xhr.readyState === 4 && xhr.status === 200) {
+                       musicData = JSON.parse(xhr.responseText);
+                       callback();
+                   }
+               };
+               xhr.open('GET', 'musicData.json', true);
+               xhr.send();
+           }
 
-        var sortedDates = Object.keys(musicData).sort(function (a, b) {
-            return new Date(b) - new Date(a);
-        });
+           // Assigns each button with data and event listener
+           function assignMusicDataToButtons() {
+               var musicList = document.getElementById("music-list");
 
-        sortedDates.forEach(function (date, index) {
-            var musicInfo = musicData[date];
-            var listItem = document.createElement("li");
-            listItem.className = "music-list-item";
+               var sortedDates = Object.keys(musicData).sort(function (a, b) {
+                   return new Date(b) - new Date(a);
+               });
 
-            // assign data
-            var button = document.createElement("button");
-            button.className = "music-button";
-            button.textContent = index + 1 + ". " + musicInfo.title;
-            button.setAttribute("data-source", musicInfo.source);
-            button.setAttribute("data-video", musicInfo.video);
+               sortedDates.forEach(function (date, index) {
+                   var musicInfo = musicData[date];
 
-            // Create play logo
-            var playLogo = document.createElement("span");
-            playLogo.className = "play-logo";
-            playLogo.innerHTML = '<i class="fas fa-play"></i>';
-            button.appendChild(playLogo);
-            playLogo.style.display = "none";
+                   //create list item
+                   var listItem = document.createElement("li");
+                   listItem.className = "music-list-item";
 
-            // music button click event
-            button.addEventListener("click", function () {
-                
-                currentMusicButton.querySelector(".play-logo").innerHTML = '<i class="fas fa-play"></i>';
-                
-                var source = this.getAttribute("data-source");
-                var videoSource = this.getAttribute("data-video");
-                setButtonAndVideoSource(source, videoSource);
-                playButton.textContent = "Play";
+                   // Create a button element
+                   var button = document.createElement("button");
+                   button.className = "music-button";
+                   var textWrapper = document.createElement("div");
+                   textWrapper.className = "button-text";
+                   textWrapper.textContent = index + 1 + ". " + musicInfo.title;
+                   button.setAttribute("data-source", musicInfo.source);
+                   button.setAttribute("data-video", musicInfo.video);
+                   button.appendChild(textWrapper);
 
-                currentMusicButton = this;
-            });
+                   // Create play logo
+                   var playLogo = document.createElement("span");
+                   playLogo.className = "play-logo";
+                   playLogo.innerHTML = '<i class="fas fa-play"></i>';
+                   button.appendChild(playLogo);
+                   playLogo.style.display = "none";
 
-            // music button mouseover/mouseout event
-            button.addEventListener("mouseover", function () {
-                playLogo.style.display = "inline-block"; // Show the play logo on hover
-            });
-            button.addEventListener("mouseout", function () {
-                playLogo.style.display = "none"; // Hide the play logo on mouseout
-            });
+                   // music button click event
+                   button.addEventListener("click", function () {
 
-            // playlogo click event
-            playLogo.addEventListener("click", function (event) {
-                event.stopPropagation(); 
-                var isPlayState = playLogo.innerHTML.includes("fa-pause");
-                //if is playing
-                if (isPlayState) {
-                    buttonAudio.pause();
-                    videoPlayer.pause();
+                       currentMusicButton.querySelector(".play-logo").innerHTML = '<i class="fas fa-play"></i>';
 
-                    bgMusic.play();
+                       var source = this.getAttribute("data-source");
+                       var videoSource = this.getAttribute("data-video");
+                       setButtonAndVideoSource(source, videoSource);
+                       playButton.textContent = "Play";
 
-                    playButton.textContent = "Play";
-                    playLogo.innerHTML = '<i class="fas fa-play"></i>'; // Change to play icon
-                } else {
-                    // if starts another sound
-                    if (currentMusicButton != button) {
-                        currentMusicButton.click();
+                       currentMusicButton = this;
+                   });
 
-                        currentMusicButton = button;
+                   // music button mouseover/mouseout event
+                   button.addEventListener("mouseover", function () {
+                       playLogo.style.display = "inline-block"; // Show the play logo on hover
+                   });
+                   button.addEventListener("mouseout", function () {
+                       playLogo.style.display = "none"; // Hide the play logo on mouseout
+                   });
 
-                        currentMusicButton.click();
-                    }
-                    bgMusic.pause();
-                    buttonAudio.play();
-                    videoPlayer.play();
+                   // playlogo click event
+                   playLogo.addEventListener("click", function (event) {
+                       event.stopPropagation();
+                       var isPlayState = playLogo.innerHTML.includes("fa-pause");
+                       //if is playing
+                       if (isPlayState) {
+                           buttonAudio.pause();
+                           videoPlayer.pause();
 
-                    playButton.textContent = "Pause";
-                    playLogo.innerHTML = '<i class="fas fa-pause"></i>'; // Change to pause icon
-                }
-            });
+                           bgMusic.play();
 
-            listItem.appendChild(button);
-            musicList.appendChild(listItem);
-        });
-    }
+                           playButton.textContent = "Play";
+                           playLogo.innerHTML = '<i class="fas fa-play"></i>'; // Change to play icon
+                       } else {
+                           // if starts another sound
+                           if (currentMusicButton != button) {
+                               currentMusicButton.click();
 
-    // Function to set button music and video sources
-    function setButtonAndVideoSource(musicSource, videoSource) {
-        // Set the buttonAudio source to the clicked music
-        buttonAudio.src = musicSource;
+                               currentMusicButton = button;
 
-        // Set the video source
-        videoPlayer.src = videoSource;
-    }
+                               currentMusicButton.click();
+                           }
+                           bgMusic.pause();
+                           buttonAudio.play();
+                           videoPlayer.play();
 
-    // Play button click event listener
-    playButton.addEventListener("click", function () {
-        if (playButton.textContent === "Play") {
-            // Check if there's a current music button and its play logo
-            if (currentMusicButton) {
-                // Simulate a click on the current music button's play logo
-                currentMusicButton.querySelector(".play-logo").click();
-            }
-        } else {
-            currentMusicButton.querySelector(".play-logo").click();
+                           playButton.textContent = "Pause";
+                           playLogo.innerHTML = '<i class="fas fa-pause"></i>'; // Change to pause icon
+                       }
+                   });
 
-        }
-    });
+                   listItem.appendChild(button);
+                   musicList.appendChild(listItem);
+               });
+           }
 
-    // DOMContentLoaded event listener
-    document.addEventListener('DOMContentLoaded', function () {
-        // Load music data from the JSON file
-        loadMusicData(function () {
-            console.log(musicData);
+           // Function to set button music and video sources
+           function setButtonAndVideoSource(musicSource, videoSource) {
+               // Set the buttonAudio source to the clicked music
+               buttonAudio.src = musicSource;
 
-            // Call the function to assign music data to buttons
-            assignMusicDataToButtons();
-        });
+               // Set the video source
+               videoPlayer.src = videoSource;
+           }
 
-        // Trigger a click event on the first music button after a delay
-        setTimeout(function () {
-            var firstMusicButton = document.querySelector('.music-button');
-            if (firstMusicButton) {
-                console.log("first button clicked by aaron");
-                currentMusicButton = firstMusicButton;
-                firstMusicButton.click();
-            }
-        }, 500); // Delay for 0.5 seconds (otherwise the video may not be loaded)
-    }, false);
+           // Play button click event listener
+           playButton.addEventListener("click", function () {
+               if (playButton.textContent === "Play") {
+                   // Check if there's a current music button and its play logo
+                   if (currentMusicButton) {
+                       // Simulate a click on the current music button's play logo
+                       currentMusicButton.querySelector(".play-logo").click();
+                   }
+               } else {
+                   currentMusicButton.querySelector(".play-logo").click();
 
-})(jQuery);
+               }
+           });
+
+           // DOMContentLoaded event listener
+           document.addEventListener('DOMContentLoaded', function () {
+               
+               // Load music data from the JSON file & apply animation
+               loadMusicData(function () {
+                   console.log(musicData);
+                   assignMusicDataToButtons();
+
+                   // Check for overflow and apply animation
+                   var musicButtons = document.querySelectorAll(".music-button");
+                   musicButtons.forEach(function (button) {
+                       var buttonText = button.querySelector(".button-text");
+                       var playLogo = button.querySelector(".play-logo");
+                       var availableSpace = button.offsetWidth - playLogo.offsetWidth;
+                       if (buttonText.scrollWidth > availableSpace) {
+                            console.log("buttonText's width: " + buttonText.scrollWidth + ", avalible spave: " + availableSpace);
+                            console.log(buttonText.innerHTML + " scrolling");
+                           buttonText.classList.add("scrollText");
+                       }
+                   });
+               });
+
+               // Trigger a click event on the first music button after a delay
+               setTimeout(function () {
+                   var firstMusicButton = document.querySelector('.music-button');
+                   if (firstMusicButton) {
+                       console.log("first button clicked by aaron");
+                       currentMusicButton = firstMusicButton;
+                       firstMusicButton.click();
+                   }
+               }, 500); // Delay for 0.5 seconds (otherwise the video may not be loaded)
+           }, false);
+
+       })(jQuery);
 
 
 //*********************************************************************************************************/

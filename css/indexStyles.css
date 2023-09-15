@@ -245,6 +245,7 @@ body {
 }
   
 .music-button {
+  position:relatie;
   background-color: transparent;
   color: rgba(255, 255, 255, 0.7);
   /* border: 1px solid rgba(255, 255, 255, 0.4); */
@@ -256,7 +257,8 @@ body {
   text-transform: uppercase;
   width: 90%;
   text-align: left;
-  cursor:pointer
+  cursor: pointer;
+  overflow: hidden;
 }
 
 .music-button:hover {
@@ -264,6 +266,24 @@ body {
   border-color: #fff;
   width: 90%;
 }
+
+.button-text {
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.scrollText{
+  animation: scrollText 10s linear infinite; /* Adjust the animation duration as needed */
+}
+
+@keyframes scrollText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 
 #video-container {
   width: 80%;
