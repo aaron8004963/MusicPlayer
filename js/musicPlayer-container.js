@@ -71,26 +71,67 @@ bgMusic.volume = 0.02;
 
             button.appendChild(playLogoContainer);
 
+            //---------------------------------------------------------------------------------------
+           
+            window.addEventListener("resize", updateButtonContent);
+
+            // update the button content based on screen width
+            function updateButtonContent() {
+                if (window.matchMedia("(max-width: 576px)").matches) {
+                    if (playButton.textContent === "Play"  || playButton.innerHTML.trim() === '<i class="fas fa-play" aria-hidden="true"></i>') {
+                        playButton.innerHTML = '<i class="fas fa-play"></i>'; // Set the play icon
+                    }else{
+                        playButton.innerHTML = '<i class="fas fa-pause"></i>';
+                    }
+                } else {
+                    if (playButton.textContent === "Play"  || playButton.innerHTML.trim() === '<i class="fas fa-play" aria-hidden="true"></i>') {
+                        playButton.innerHTML = 'Play'; 
+                    }else{
+                        playButton.innerHTML = 'Pause';
+                    }
+                }
+            }
+
             // music button click event
             button.addEventListener("click", function () {
-
                 currentMusicButton.querySelector(".play-logo").innerHTML = '<i class="fas fa-play"></i>';
-
                 var source = this.getAttribute("data-source");
                 var videoSource = this.getAttribute("data-video");
                 setButtonAndVideoSource(source, videoSource);
-                playButton.textContent = "Play";
+
+                // Check the initial screen width when the button is clicked
+                updateButtonContent();
 
                 currentMusicButton = this;
             });
 
+            // Listen for screen width changes and update the button content
+            
+            //---------------------------------------------------------------------------------------
             // music button mouseover/mouseout event
+           
             button.addEventListener("mouseover", function () {
                 playLogo.style.display = "inline-block"; // Show the play logo on hover
             });
             button.addEventListener("mouseout", function () {
                 playLogo.style.display = "none"; // Hide the play logo on mouseout
             });
+
+            function updateButtonContent2(){
+                if (window.matchMedia("(max-width: 576px)").matches) {
+                    if (playButton.textContent === "Play"  || playButton.innerHTML.trim() === '<i class="fas fa-play" aria-hidden="true"></i>') {
+                        playButton.innerHTML = '<i class="fas fa-pause"></i>'; // Set the play icon
+                    }else{
+                        playButton.innerHTML = '<i class="fas fa-play"></i>';
+                    }
+                } else {
+                    if (playButton.textContent === "Play"  || playButton.innerHTML.trim() === '<i class="fas fa-play" aria-hidden="true"></i>') {
+                        playButton.innerHTML = 'Pause'; 
+                    }else{
+                        playButton.innerHTML = 'Play';
+                    }
+                }
+            }
 
             // playlogo click event
             playLogo.addEventListener("click", function (event) {
@@ -103,8 +144,9 @@ bgMusic.volume = 0.02;
 
                     bgMusic.play();
 
-                    playButton.textContent = "Play";
                     playLogo.innerHTML = '<i class="fas fa-play"></i>'; // Change to play icon
+                    updateButtonContent2();
+                    
                 } else {
                     // if starts another sound
                     if (currentMusicButton != button) {
@@ -118,15 +160,15 @@ bgMusic.volume = 0.02;
                     buttonAudio.play();
                     videoPlayer.play();
 
-                    playButton.textContent = "Pause";
                     playLogo.innerHTML = '<i class="fas fa-pause"></i>'; // Change to pause icon
+                    updateButtonContent2();
                 }
             });
 
             // Listen for the 'ended' event of buttonAudio to stop the video player
-buttonAudio.addEventListener("ended", function () {
-    videoPlayer.pause();
-});
+            buttonAudio.addEventListener("ended", function () {
+                videoPlayer.pause();
+            });
 
             listItem.appendChild(button);
             musicList.appendChild(listItem);
@@ -144,16 +186,7 @@ buttonAudio.addEventListener("ended", function () {
 
     // Play button click event listener
     playButton.addEventListener("click", function () {
-        if (playButton.textContent === "Play") {
-            // Check if there's a current music button and its play logo
-            if (currentMusicButton) {
-                // Simulate a click on the current music button's play logo
-                currentMusicButton.querySelector(".play-logo").click();
-            }
-        } else {
-            currentMusicButton.querySelector(".play-logo").click();
-
-        }
+        currentMusicButton.querySelector(".play-logo").click();
     });
 
     // DOMContentLoaded event listener
@@ -217,36 +250,36 @@ document.addEventListener("DOMContentLoaded", function () {
     const playControl = document.getElementById("play-mode");
     const playModeIcons = ["fas fa-random", "fas fa-sort-numeric-up", "fas fa-redo"];
     let currentModeIndex = 0;
-  
+
     // Function to toggle between play modes and update the button's icon
     function togglePlayMode() {
-      currentModeIndex = (currentModeIndex + 1) % playModeIcons.length;
-      const currentModeIcon = playModeIcons[currentModeIndex];
-  
-      // Update the data attribute to store the current play mode icon class
-      playControl.setAttribute("data-play-mode", currentModeIcon);
-  
-      // Update the button's icon based on the current play mode
-      playControl.innerHTML = `<i class="${currentModeIcon}"></i>`;
-  
-      // You can also add logic here to handle the actual play mode behavior
-      switch (currentModeIcon) {
-        case "fas fa-random":
-          // Handle "play randomly" mode
-          break;
-        case "fas fa-sort-numeric-up":
-          // Handle "play in order" mode
-          break;
-        case "fas fa-redo":
-          // Handle "loop" mode
-          break;
-      }
+        currentModeIndex = (currentModeIndex + 1) % playModeIcons.length;
+        const currentModeIcon = playModeIcons[currentModeIndex];
+
+        // Update the data attribute to store the current play mode icon class
+        playControl.setAttribute("data-play-mode", currentModeIcon);
+
+        // Update the button's icon based on the current play mode
+        playControl.innerHTML = `<i class="${currentModeIcon}"></i>`;
+
+        // You can also add logic here to handle the actual play mode behavior
+        switch (currentModeIcon) {
+            case "fas fa-random":
+                // Handle "play randomly" mode
+                break;
+            case "fas fa-sort-numeric-up":
+                // Handle "play in order" mode
+                break;
+            case "fas fa-redo":
+                // Handle "loop" mode
+                break;
+        }
     }
-  
+
     // Add a click event listener to toggle play modes
     playControl.addEventListener("click", togglePlayMode);
-  });
-  
+});
+
 //*********************************************************************************************************/
 
 // footer volume control
@@ -275,19 +308,19 @@ var cat = document.getElementById("cat");
 
 // Add an event listener to the volume control input
 volumeControl.addEventListener("input", function () {
-  // Get the current volume value from the input
-  var volumeValue = parseFloat(volumeControl.value);
+    // Get the current volume value from the input
+    var volumeValue = parseFloat(volumeControl.value);
 
-  // Calculate the thumb position as a percentage
-  var thumbPosition = (volumeValue * 100) + '%';
+    // Calculate the thumb position as a percentage
+    var thumbPosition = (volumeValue * 100) + '%';
 
-  // Update the cat's position to follow the thumb
-  cat.style.transform = `translateX(${thumbPosition})`;
+    // Update the cat's position to follow the thumb
+    cat.style.transform = `translateX(${thumbPosition})`;
 
-  // Show or hide the cat based on the volume value
-  if (volumeValue > 0) {
-    catContainer.style.opacity = 1;
-  } else {
-    catContainer.style.opacity = 0;
-  }
+    // Show or hide the cat based on the volume value
+    if (volumeValue > 0) {
+        catContainer.style.opacity = 1;
+    } else {
+        catContainer.style.opacity = 0;
+    }
 });
