@@ -72,44 +72,53 @@ bgMusic.volume = 0.02;
             button.appendChild(playLogoContainer);
 
             //---------------------------------------------------------------------------------------
-           
+
             window.addEventListener("resize", updateButtonContent);
 
             // update the button content based on screen width
             function updateButtonContent() {
                 if (window.matchMedia("(max-width: 576px)").matches) {
-                    if (playButton.textContent === "Play"  || playButton.innerHTML.trim() === '<i class="fas fa-play" aria-hidden="true"></i>') {
+                    if (playButton.textContent === "Play" || playButton.innerHTML.includes("fa-play")) {
                         playButton.innerHTML = '<i class="fas fa-play"></i>'; // Set the play icon
-                    }else{
+                    } else {
                         playButton.innerHTML = '<i class="fas fa-pause"></i>';
                     }
                 } else {
-                    if (playButton.textContent === "Play"  || playButton.innerHTML.trim() === '<i class="fas fa-play" aria-hidden="true"></i>') {
-                        playButton.innerHTML = 'Play'; 
-                    }else{
+                    if (playButton.textContent === "Play" || playButton.innerHTML.includes("fa-play")) {
+                        playButton.innerHTML = 'Play';
+                    } else {
                         playButton.innerHTML = 'Pause';
                     }
                 }
             }
 
+            function updateButtonContent2() {
+                if (window.matchMedia("(max-width: 576px)").matches) {
+                    playButton.innerHTML = '<i class="fas fa-play"></i>';
+                } else {
+                    playButton.innerHTML = 'Play';
+                }
+            }
+
             // music button click event
             button.addEventListener("click", function () {
+
                 currentMusicButton.querySelector(".play-logo").innerHTML = '<i class="fas fa-play"></i>';
+
                 var source = this.getAttribute("data-source");
                 var videoSource = this.getAttribute("data-video");
                 setButtonAndVideoSource(source, videoSource);
+                updateButtonContent2();
 
-                // Check the initial screen width when the button is clicked
-                updateButtonContent();
 
                 currentMusicButton = this;
             });
 
             // Listen for screen width changes and update the button content
-            
+
             //---------------------------------------------------------------------------------------
             // music button mouseover/mouseout event
-           
+
             button.addEventListener("mouseover", function () {
                 playLogo.style.display = "inline-block"; // Show the play logo on hover
             });
@@ -117,17 +126,20 @@ bgMusic.volume = 0.02;
                 playLogo.style.display = "none"; // Hide the play logo on mouseout
             });
 
-            function updateButtonContent2(){
+            function updateButtonContent3() {
                 if (window.matchMedia("(max-width: 576px)").matches) {
-                    if (playButton.textContent === "Play"  || playButton.innerHTML.trim() === '<i class="fas fa-play" aria-hidden="true"></i>') {
+                    if (playButton.textContent === "Play" || playButton.innerHTML.includes("fa-play")) {
                         playButton.innerHTML = '<i class="fas fa-pause"></i>'; // Set the play icon
-                    }else{
+                        console.log("change to pause");
+
+                    } else {
                         playButton.innerHTML = '<i class="fas fa-play"></i>';
+                        console.log("change to play");
                     }
                 } else {
-                    if (playButton.textContent === "Play"  || playButton.innerHTML.trim() === '<i class="fas fa-play" aria-hidden="true"></i>') {
-                        playButton.innerHTML = 'Pause'; 
-                    }else{
+                    if (playButton.textContent === "Play" || playButton.innerHTML.includes("fa-play")) {
+                        playButton.innerHTML = 'Pause';
+                    } else {
                         playButton.innerHTML = 'Play';
                     }
                 }
@@ -144,24 +156,31 @@ bgMusic.volume = 0.02;
 
                     bgMusic.play();
 
-                    playLogo.innerHTML = '<i class="fas fa-play"></i>'; // Change to play icon
-                    updateButtonContent2();
-                    
+                    playLogo.innerHTML = '<i class="fas fa-play"></i>';
+                    updateButtonContent3();
+
                 } else {
                     // if starts another sound
                     if (currentMusicButton != button) {
-                        currentMusicButton.click();
-
-                        currentMusicButton = button;
-
-                        currentMusicButton.click();
+                        button.click();
+                        bgMusic.pause();
+                        buttonAudio.play();
+                        videoPlayer.play();
+                        playLogo.innerHTML = '<i class="fas fa-pause"></i>'; // Change to pause icon
+                        console.log("changeIcon");
+                        updateButtonContent3();
+                    }else{
+                        bgMusic.pause();
+                        buttonAudio.play();
+                        videoPlayer.play();
+    
+    
+                        playLogo.innerHTML = '<i class="fas fa-pause"></i>'; // Change to pause icon
+    
+    
+                        updateButtonContent3();
                     }
-                    bgMusic.pause();
-                    buttonAudio.play();
-                    videoPlayer.play();
 
-                    playLogo.innerHTML = '<i class="fas fa-pause"></i>'; // Change to pause icon
-                    updateButtonContent2();
                 }
             });
 
