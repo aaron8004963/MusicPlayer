@@ -53,3 +53,52 @@ function closeNavbarOnResize() {
 window.addEventListener('resize', closeNavbarOnResize);
 
 //*********************************************************************************************************/
+
+
+//Lycris button
+document.addEventListener("DOMContentLoaded", function () {
+    const lyricsControl = document.getElementById("lyrics-button");
+
+    // Function to toggle sound
+    function togglelyrics() {
+        if (lyricsControl.textContent == "Lyrics: Off") {
+            lyricsControl.textContent = "Lyrics: On";
+        } else {
+            lyricsControl.textContent = "Lyrics: Off";
+        }
+    }
+
+    // Add click event listener to sound control button
+    lyricsControl.addEventListener("click", togglelyrics);
+});
+
+
+//*********************************************************************************************************/
+// nav bar Sound button
+document.addEventListener("DOMContentLoaded", function () {
+    const soundControl = document.getElementById("sound-control");
+
+    // Function to toggle sound mute/unmute for all audio elements
+    function toggleSound() {
+        const audioElements = document.querySelectorAll("audio");
+
+        audioElements.forEach(function (audio) {
+            if (audio.muted) {
+                audio.muted = false;
+            } else {
+                audio.muted = true;
+            }
+        });
+
+        // Toggle the text content of the sound control button
+        if (audioElements[0].muted) {
+            soundControl.textContent = "Sound: Off";
+        } else {
+            soundControl.textContent = "Sound: On";
+        }
+    }
+
+    // Add click event listener to sound control button
+    soundControl.addEventListener("click", toggleSound);
+});
+

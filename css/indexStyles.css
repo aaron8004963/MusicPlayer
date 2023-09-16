@@ -262,6 +262,8 @@ body {
 
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Center items horizontally and add space between them */
+
 }
 
 .music-button:hover {
@@ -270,10 +272,22 @@ body {
   width: 90%;
 }
 
-.music-button .button-textBox {
-  white-space: nowrap; /* Prevent text from wrapping */
+.index-wrapper {
+  white-space: nowrap;
+  flex-shrink: 0; /* Don't allow the index to grow or shrink */
+  margin: 0 5%; /* Add spacing between index and text */
+}
+
+.text-container {
+  white-space: nowrap;
   flex-grow: 1; /* Allow the title to grow and take available space */
   overflow: hidden; /* Hide overflow text */
+  text-align: center; /* Center text within the container */
+}
+
+.play-logo-container{
+  width : 10%;
+  margin:0 5%;
 }
 
 
@@ -290,10 +304,6 @@ body {
   }
 }
 
-.play-logo{
-  position:absolute;
-  right:0;
-}
 
 #video-container {
   width: 80%;
@@ -374,6 +384,74 @@ body {
   color: #fff;
   border-color: #fff;
 }
+
+/*********************************************************************************************************/
+
+/* Style for the volume control container */
+#volume-control-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Style for the volume control input */
+#volume-control {
+  width: 100px;
+  height: 6px;
+  background-color: #ccc;
+  -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+  appearance: none;
+  border: none;
+  outline: none;
+  margin: 0 10px;
+  z-index: 1; /* Ensure it's above the cat */
+}
+
+/* Style for the volume control track */
+#volume-control::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  background: #ccc;
+  border-radius: 3px;
+}
+
+/* Style for the volume control thumb (slider handle) */
+#volume-control::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  background: #525253;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+  appearance: none;
+  margin-top: -5px; /* Adjust the margin to move the thumb higher */
+  z-index: 1; /* Ensure it's above the cat */
+
+}
+/* Style for the cat container */
+#cat-container {
+  position: absolute;
+  right: -30px; /* Adjust the position of the cat container */
+  top: -20px; /* Adjust the position of the cat container */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease-in-out; /* Fade-in animation */
+  z-index: 0; /* Ensure it's below the volume control */
+}
+/* Style for the cat image */
+#cat {
+  width: 80px;
+  height: auto;
+}
+/* Style for the volume control thumb (slider handle) when active */
+#volume-control::-webkit-slider-thumb:active {
+  background: #525253;
+}
+
+/* Style for the volume control thumb (slider handle) when hovered */
+#volume-control::-webkit-slider-thumb:hover {
+  background: #000000;
+}
+
 
 #lyrics {
   width: 80%;
