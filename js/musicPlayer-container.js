@@ -270,16 +270,19 @@ var volumeControl = document.getElementById("volume-control");
 // Get the cat container
 var catContainer = document.getElementById("cat-container");
 
+// Get the cat image
+var cat = document.getElementById("cat");
+
 // Add an event listener to the volume control input
 volumeControl.addEventListener("input", function () {
   // Get the current volume value from the input
   var volumeValue = parseFloat(volumeControl.value);
 
-  // Set the volume of the cat's meow based on the volume value
-  var catVolume = volumeValue * 100;
+  // Calculate the thumb position as a percentage
+  var thumbPosition = (volumeValue * 100) + '%';
 
-  // Update the cat's meow volume using CSS
-  catContainer.style.setProperty("--cat-volume", catVolume + "%");
+  // Update the cat's position to follow the thumb
+  cat.style.transform = `translateX(${thumbPosition})`;
 
   // Show or hide the cat based on the volume value
   if (volumeValue > 0) {

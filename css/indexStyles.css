@@ -304,7 +304,6 @@ body {
   }
 }
 
-
 #video-container {
   width: 80%;
   background-color: rgba(110, 110, 110, 0.925);
@@ -319,6 +318,8 @@ body {
   height: 90%;
   overflow: hidden;
 }
+
+/*********************************************************************************************************/
 
 #footer {
   position: absolute;
@@ -339,7 +340,13 @@ body {
   align-items: center;
   justify-content: space-between; /* Push buttons to the left and right edges */
   width: 100%;
+  height:90%;
   overflow: hidden;
+}
+
+.button-container{
+  margin: 0 3%;
+  width:5rem;
 }
 
 .controls-button {
@@ -352,8 +359,7 @@ body {
   border-radius: 4px;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  margin: 0 3%;
-  height: 80%;
+  height: 40%;
 }
 
 /* Media query for screens smaller than 768px */
@@ -391,6 +397,9 @@ body {
 #volume-control-container {
   display: flex;
   align-items: center;
+  position: relative; /* To position the cat container relative to this container */
+  margin: 15px 10px 0;
+  height: 1px; 
 }
 
 /* Style for the volume control input */
@@ -402,14 +411,13 @@ body {
   appearance: none;
   border: none;
   outline: none;
-  margin: 0 10px;
   z-index: 1; /* Ensure it's above the cat */
 }
 
 /* Style for the volume control track */
 #volume-control::-webkit-slider-runnable-track {
   width: 100%;
-  height: 6px;
+  height: 7px;
   background: #ccc;
   border-radius: 3px;
 }
@@ -426,22 +434,8 @@ body {
   appearance: none;
   margin-top: -5px; /* Adjust the margin to move the thumb higher */
   z-index: 1; /* Ensure it's above the cat */
+}
 
-}
-/* Style for the cat container */
-#cat-container {
-  position: absolute;
-  right: -30px; /* Adjust the position of the cat container */
-  top: -20px; /* Adjust the position of the cat container */
-  opacity: 0; /* Initially hidden */
-  transition: opacity 0.3s ease-in-out; /* Fade-in animation */
-  z-index: 0; /* Ensure it's below the volume control */
-}
-/* Style for the cat image */
-#cat {
-  width: 80px;
-  height: auto;
-}
 /* Style for the volume control thumb (slider handle) when active */
 #volume-control::-webkit-slider-thumb:active {
   background: #525253;
@@ -452,6 +446,26 @@ body {
   background: #000000;
 }
 
+/* Style for the cat container */
+#cat-container {
+  position: absolute;
+  width: 40px; /* Adjust the size of the cat container */
+  height: 40px; /* Adjust the size of the cat container */
+  top: -40px; /* Position the cat above the thumb */
+  left: calc(50% - 20px); /* Center the cat horizontally */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease-in-out; /* Fade-in animation */
+}
+
+/* Style for the cat image */
+#cat {
+  width: 80%;
+  height: 80%;
+  position: relative;
+  transition: transform 0.3s ease-in-out; /* Smooth movement animation */
+}
+
+/*********************************************************************************************************/
 
 #lyrics {
   width: 80%;

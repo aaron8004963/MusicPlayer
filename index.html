@@ -11,7 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Petit+Formal+Script&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Petit+Formal+Script&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
     <script src="https://kit.fontawesome.com/69efd88cc8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/password.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -19,7 +21,7 @@
 </head>
 
 <body>
-    
+
     <!-- Backgound music Section -->
     <audio id="bg-music" loop>
         <source src="music\singleRomantic.ogg" type="audio/ogg">
@@ -29,7 +31,7 @@
     <!-- Button Music Section -->
     <audio id="button-audio" preload="auto"></audio>
 
-<!--     <section id="blockscreen">
+    <!--     <section id="blockscreen">
         <div id="index" style="background-color: black;">
 			
 			<p id="terminal1" class="terminal">CENTROLIZED //..TERMINAL..//</p>
@@ -145,18 +147,24 @@
                 <div id="footer">
                     <!-- Playback Controls (Play, Pause, Volume, etc.) -->
                     <div id="controls-container">
-                        <button id="play-button" class="controls-button">Play</button>
+                        <div class="button-container">
+                            <button id="play-button" class="controls-button">Play</button>
+                        </div>
 
-                        <button id="play-mode" class="controls-button"> <i class="fas fa-random"></i></button>
+                        <div class="button-container">
+                            <button id="play-mode" class="controls-button"> <i class="fas fa-random"></i></button>
+                        </div>
 
                         <div id="volume-control-container">
                             <input id="volume-control" type="range" min="0" max="1" step="0.1" value="0.5">
                             <div id="cat-container">
-                              <img id="cat" src="icon/cat.png" alt="Cat">
+                                <img id="cat" src="icon/cat.png" alt="Cat">
                             </div>
-                          </div>
+                        </div>
 
-                         <button id="show-lyrics-button" class="controls-button">Show Lyrics</button>
+                        <div class="button-container">
+                            <button id="show-lyrics-button" class="controls-button">Show Lyrics</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -178,7 +186,7 @@
     <script src="js/musicPlayer-container.js"></script>
     <script src="js/hero-container.js"></script>
     <script src="js/navbar-container.js"></script>
-    
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 </body>
