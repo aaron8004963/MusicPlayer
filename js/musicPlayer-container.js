@@ -1,21 +1,19 @@
+
 // Initialize var musicData by reading from JSON file
 var musicData = {};
 var bgMusic = document.getElementById("bg-music");
 bgMusic.volume = 0.02;
-if(bgMusic.volume == 0.02){
-    console.log("volume set");
-}else{
-    console.log("not set");
-}
 
 (function ($) {
     "use strict";
 
-    // Global variables for background music and button music
     var buttonAudio = document.getElementById("button-audio");
     var videoPlayer = document.getElementById("video-player");
+    var playButton = document.getElementById("play-button");
 
-    // Function to load music data from JSON file
+    var currentMusicButton = null;
+
+    // load music data from JSON
     function loadMusicData(callback) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -28,34 +26,166 @@ if(bgMusic.volume == 0.02){
         xhr.send();
     }
 
-    // Assigns music data to music list buttons
+    // Assigns each button with data and event listener
     function assignMusicDataToButtons() {
         var musicList = document.getElementById("music-list");
 
-        // Sort the musicData
         var sortedDates = Object.keys(musicData).sort(function (a, b) {
             return new Date(b) - new Date(a);
         });
 
         sortedDates.forEach(function (date, index) {
             var musicInfo = musicData[date];
-            var listItem = document.createElement("li");
-            listItem.className = "music-list-item"; 
 
+            //create list item
+            var listItem = document.createElement("li");
+            listItem.className = "music-list-item";
+
+            // Create a button element
             var button = document.createElement("button");
             button.className = "music-button";
-            button.textContent = index + 1 + ". " + musicInfo.title;
+            var indexWrapper = document.createElement("div");
+            indexWrapper.className = "index-wrapper";
+            indexWrapper.textContent = index + 1 + ".";
+            var container = document.createElement("div"); // Container for textWrapper
+            container.className = "text-container";
+            var textWrapper = document.createElement("div");
+            textWrapper.className = "button-text-wrapper";
+            textWrapper.textContent = musicInfo.title;
             button.setAttribute("data-source", musicInfo.source);
-            button.setAttribute("data-video", musicInfo.video); // Add video source to button
+            button.setAttribute("data-video", musicInfo.video);
+
+            button.appendChild(indexWrapper);
+            container.appendChild(textWrapper);
+            button.appendChild(container);
+
+
+            // Create play logo
+            var playLogoContainer = document.createElement("div"); // Container for playLogo
+            playLogoContainer.className = "play-logo-container";
+            var playLogo = document.createElement("span");
+            playLogo.className = "play-logo";
+            playLogo.innerHTML = '<i class="fas fa-play playIcon"></i>';
+            playLogoContainer.appendChild(playLogo);
+            playLogo.style.display = "none";
+
+            button.appendChild(playLogoContainer);
+
+//---------------------------------------------------------------------------------------
+
+            window.addEventListener("resize", updateButtonContent);
+
+            // update the button content based on screen width
+            function updateButtonContent() {
+                if (window.matchMedia("(max-width: 576px)").matches) {
+                    if (playButton.textContent === "Play" || playButton.innerHTML.includes("fa-play")) {
+                        playButton.innerHTML = '<i class="fas fa-play"></i>'; // Set the play icon
+                    } else {
+                        playButton.innerHTML = '<i class="fas fa-pause"></i>';
+                    }
+                } else {
+                    if (playButton.textContent === "Play" || playButton.innerHTML.includes("fa-play")) {
+                        playButton.innerHTML = 'Play';
+                    } else {
+                        playButton.innerHTML = 'Pause';
+                    }
+                }
+            }
+
+            function updateButtonContent2() {
+                if (window.matchMedia("(max-width: 576px)").matches) {
+                    playButton.innerHTML = '<i class="fas fa-play"></i>';
+                } else {
+                    playButton.innerHTML = 'Play';
+                }
+            }
+
+            // music button click event
             button.addEventListener("click", function () {
+
+                currentMusicButton.querySelector(".play-logo").innerHTML = '<i class="fas fa-play playIcon"></i>';
+
                 var source = this.getAttribute("data-source");
-                var videoSource = this.getAttribute("data-video"); // Get video source
+                var videoSource = this.getAttribute("data-video");
                 setButtonAndVideoSource(source, videoSource);
-                playButton.textContent = "Play";
+                updateButtonContent2();
+
+
+                currentMusicButton = this;
+            });
+
+            // Listen for screen width changes and update the button content
+
+//---------------------------------------------------------------------------------------
+            // music button mouseover/mouseout event
+
+            button.addEventListener("mouseover", function () {
+                playLogo.style.display = "inline-block"; // Show the play logo on hover
+            });
+            button.addEventListener("mouseout", function () {
+                playLogo.style.display = "none"; // Hide the play logo on mouseout
+            });
+
+            function updateButtonContent3() {
+                if (window.matchMedia("(max-width: 576px)").matches) {
+                    if (playButton.textContent === "Play" || playButton.innerHTML.includes("fa-play")) {
+                        playButton.innerHTML = '<i class="fas fa-pause"></i>'; // Set the play icon
+                        console.log("change to pause");
+
+                    } else {
+                        playButton.innerHTML = '<i class="fas fa-play"></i>';
+                        console.log("change to play");
+                    }
+                } else {
+                    if (playButton.textContent === "Play" || playButton.innerHTML.includes("fa-play")) {
+                        playButton.innerHTML = 'Pause';
+                    } else {
+                        playButton.innerHTML = 'Play';
+                    }
+                }
+            }
+
+            // playlogo click event
+            playLogo.addEventListener("click", function (event) {
+                event.stopPropagation();
+                var isPlayState = playLogo.innerHTML.includes("fa-pause");
+                //if is playing
+                if (isPlayState) {
+                    buttonAudio.pause();
+                    videoPlayer.pause();
+
+                    bgMusic.play();
+
+                    playLogo.innerHTML = '<i class="fas fa-play playIcon"></i>';
+                    updateButtonContent3();
+
+                } else {
+                    // if starts another sound
+                    if (currentMusicButton != button) {
+                        button.click();
+                        bgMusic.pause();
+                        buttonAudio.play();
+                        videoPlayer.play();
+                        playLogo.innerHTML = '<i class="fas fa-pause playIcon"></i>'; // Change to pause icon
+                        updateButtonContent3();
+                    }else{
+                        bgMusic.pause();
+                        buttonAudio.play();
+                        videoPlayer.play();
+                        playLogo.innerHTML = '<i class="fas fa-pause playIcon"></i>'; // Change to pause icon
+                        updateButtonContent3();
+                    }
+
+                }
+            });
+
+            // Listen for the 'ended' event of buttonAudio to stop the video player
+            buttonAudio.addEventListener("ended", function () {
+                videoPlayer.pause();
             });
 
             listItem.appendChild(button);
-            musicList.appendChild(listItem); // Append <li> to the <ul>
+            musicList.appendChild(listItem);
         });
     }
 
@@ -69,39 +199,31 @@ if(bgMusic.volume == 0.02){
     }
 
     // Play button click event listener
-    var playButton = document.getElementById("play-button");
     playButton.addEventListener("click", function () {
-        if (playButton.textContent === "Play") {
-
-            bgMusic.pause();
-
-            buttonAudio.play();
-
-            videoPlayer.play();
-
-            playButton.textContent = "Pause";
-        } else {
-
-            buttonAudio.pause();
-
-            videoPlayer.pause();
-
-            playButton.textContent = "Play";
-
-            bgMusic.play();
-        }
+        currentMusicButton.querySelector(".play-logo").click();
     });
 
     // DOMContentLoaded event listener
     document.addEventListener('DOMContentLoaded', function () {
 
-
-        // Load music data from the JSON file
+        // Load music data from the JSON file & apply animation
         loadMusicData(function () {
             console.log(musicData);
-
-            // Call the function to assign music data to buttons
             assignMusicDataToButtons();
+
+            // Check for overflow and apply animation
+            var musicButtons = document.querySelectorAll(".music-button");
+            musicButtons.forEach(function (button) {
+                var container = button.querySelector(".text-container")
+                var buttonText = container.querySelector(".button-text-wrapper");
+                var playLogo = button.querySelector(".play-logo");
+                var availableSpace = container.offsetWidth - playLogo.offsetWidth;
+                if (buttonText.scrollWidth > container.offsetWidth) {
+                    console.log("buttonText's width: " + buttonText.scrollWidth + ", avalible space: " + availableSpace);
+                    console.log(buttonText.innerHTML + " scrolling");
+                    buttonText.classList.add("scrollText");
+                }
+            });
         });
 
         // Trigger a click event on the first music button after a delay
@@ -109,62 +231,48 @@ if(bgMusic.volume == 0.02){
             var firstMusicButton = document.querySelector('.music-button');
             if (firstMusicButton) {
                 console.log("first button clicked by aaron");
+                currentMusicButton = firstMusicButton;
                 firstMusicButton.click();
             }
-        }, 500); // Delay for 0.5 second (otherwise the video may not be loaded)
+        }, 500); // Delay for 0.5 seconds (otherwise the video may not be loaded)
     }, false);
 
 })(jQuery);
 
 //*********************************************************************************************************/
 
-//Lycris button
-document.addEventListener("DOMContentLoaded", function () {
-    const lyricsControl = document.getElementById("lyrics-button");
-
-    // Function to toggle sound
-    function togglelyrics() {
-        if (lyricsControl.textContent == "Lyrics: Off") {
-            lyricsControl.textContent = "Lyrics: On";
-        } else {
-            lyricsControl.textContent = "Lyrics: Off";
+// JavaScript code to handle scroll animation
+function startScrollAnimation() {
+    var container = document.querySelector(".button-text-wrapper");
+    var text = container.querySelector(".text");
+  
+    // Check if the text is overflowing the container
+    if (text.offsetWidth > container.offsetWidth) {
+      var distance = text.offsetWidth - container.offsetWidth;
+      
+      // Create keyframes dynamically based on the distance
+      var keyframes = `@keyframes scrollText {
+        0% {
+          transform: translateX(0%);
         }
-    }
-
-    // Add click event listener to sound control button
-    lyricsControl.addEventListener("click", togglelyrics);
-});
-
-
-//*********************************************************************************************************/
-// Sound button
-document.addEventListener("DOMContentLoaded", function () {
-    const soundControl = document.getElementById("sound-control");
-
-    // Function to toggle sound mute/unmute for all audio elements
-    function toggleSound() {
-        const audioElements = document.querySelectorAll("audio");
-
-        audioElements.forEach(function (audio) {
-            if (audio.muted) {
-                audio.muted = false;
-            } else {
-                audio.muted = true;
-            }
-        });
-
-        // Toggle the text content of the sound control button
-        if (audioElements[0].muted) {
-            soundControl.textContent = "Sound: Off";
-        } else {
-            soundControl.textContent = "Sound: On";
+        100% {
+          transform: translateX(-${distance}px);
         }
+      }`;
+  
+      // Create a style element and append keyframes
+      var style = document.createElement("style");
+      style.innerHTML = keyframes;
+      document.head.appendChild(style);
+  
+      // Apply the animation to the text container
+      container.style.animation = "scrollText 10s linear infinite";
     }
-
-    // Add click event listener to sound control button
-    soundControl.addEventListener("click", toggleSound);
-});
-
+  }
+  
+  // Call the function when the document is loaded
+  document.addEventListener("DOMContentLoaded", startScrollAnimation);
+  
 //*********************************************************************************************************/
 
 // Listen for messages from calendar and paly music if sound on
@@ -182,3 +290,83 @@ window.addEventListener('message', function (event) {
 });
 
 //*********************************************************************************************************/
+
+// Playmode button
+document.addEventListener("DOMContentLoaded", function () {
+    const playControl = document.getElementById("play-mode");
+    const playModeIcons = ["fas fa-random", "fas fa-sort-numeric-up", "fas fa-redo"];
+    let currentModeIndex = 0;
+
+    // Function to toggle between play modes and update the button's icon
+    function togglePlayMode() {
+        currentModeIndex = (currentModeIndex + 1) % playModeIcons.length;
+        const currentModeIcon = playModeIcons[currentModeIndex];
+
+        // Update the data attribute to store the current play mode icon class
+        playControl.setAttribute("data-play-mode", currentModeIcon);
+
+        // Update the button's icon based on the current play mode
+        playControl.innerHTML = `<i class="${currentModeIcon}"></i>`;
+
+        // You can also add logic here to handle the actual play mode behavior
+        switch (currentModeIcon) {
+            case "fas fa-random":
+                // Handle "play randomly" mode
+                break;
+            case "fas fa-sort-numeric-up":
+                // Handle "play in order" mode
+                break;
+            case "fas fa-redo":
+                // Handle "loop" mode
+                break;
+        }
+    }
+
+    // Add a click event listener to toggle play modes
+    playControl.addEventListener("click", togglePlayMode);
+});
+
+//*********************************************************************************************************/
+
+// footer volume control
+document.addEventListener('DOMContentLoaded', function () {
+    // Get references to the necessary elements
+    var buttonAudio = document.getElementById("button-audio");
+    var volumeControl = document.getElementById("volume-control");
+
+    // Add an event listener to the volume control input
+    volumeControl.addEventListener("input", function () {
+        var volumeValue = parseFloat(volumeControl.value);
+
+        buttonAudio.volume = volumeValue;
+    });
+});
+//*********************************************************************************************************/
+
+// Get the volume control input element
+var volumeControl = document.getElementById("volume-control");
+
+// Get the cat container
+var catContainer = document.getElementById("cat-container");
+
+// Get the cat image
+var cat = document.getElementById("cat");
+
+// Add an event listener to the volume control input
+volumeControl.addEventListener("input", function () {
+    // Get the current volume value from the input
+    var volumeValue = parseFloat(volumeControl.value);
+
+    // Calculate the thumb position as a percentage
+    var thumbPosition = (volumeValue * 100) + '%';
+
+    // Update the cat's position to follow the thumb
+    cat.style.transform = `translateX(${thumbPosition})`;
+
+    // Show or hide the cat based on the volume value
+    if (volumeValue > 0) {
+        catContainer.style.opacity = 1;
+    } else {
+        catContainer.style.opacity = 0;
+    }
+});

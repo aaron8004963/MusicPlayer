@@ -33,7 +33,7 @@ body {
 }
 
 .navbar-brand {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: 22px;
   line-height: 100%;
   text-transform: uppercase;
@@ -137,7 +137,7 @@ body {
 }
 
 #hero h1 {
-    font-family: 'Petit Formal Script', cursive;
+  font-family: "Petit Formal Script", cursive;
   font-size: 48px;
   line-height: 1.7em;
   text-transform: uppercase; /* Capitalize all letters */
@@ -145,8 +145,8 @@ body {
 }
 
 #hero p {
-    font-family: 'Cormorant Garamond', serif;
-    color: white;
+  font-family: "Cormorant Garamond", serif;
+  color: white;
 }
 /* fading out */
 .fade-out {
@@ -243,20 +243,26 @@ body {
   margin-bottom: 5%;
   text-align: center;
 }
-  
+
 .music-button {
+  position: relative;
   background-color: transparent;
   color: rgba(255, 255, 255, 0.7);
   /* border: 1px solid rgba(255, 255, 255, 0.4); */
-  border:none;
+  border: none;
   font-weight: normal;
-  padding: 0.5em;
+  padding: 0%;
+  margin: 0.5em;
   border-radius: 4px;
   transition: all 0.3s ease;
   text-transform: uppercase;
   width: 90%;
-  text-align: left;
-  cursor:pointer
+  cursor: pointer;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Center items horizontally and add space between them */
 }
 
 .music-button:hover {
@@ -264,6 +270,45 @@ body {
   border-color: #fff;
   width: 90%;
 }
+
+.index-wrapper {
+  white-space: nowrap;
+  flex-shrink: 0; /* Don't allow the index to grow or shrink */
+  margin: 0 5%; /* Add spacing between index and text */
+}
+
+.text-container {
+  width:80%;
+  white-space: nowrap;
+  flex-grow: 1; /* Allow the title to grow and take available space */
+  overflow: hidden; /* Hide overflow text */
+  text-align: center; /* Center text within the container */
+}
+
+.play-logo-container {
+  width: 10%;
+  margin: 0 5%;
+}
+
+.scrollText {
+  white-space: nowrap;
+  position: relative;
+  animation: scrollText 10s linear infinite;
+}
+
+@keyframes scrollText {
+  0% {
+    transform: translateX(0%);
+  }
+  5% {
+    transform: translateX(0%); /* Stop for 0.5 seconds at the beginning */
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+
 
 #video-container {
   width: 80%;
@@ -280,6 +325,8 @@ body {
   overflow: hidden;
 }
 
+/*********************************************************************************************************/
+
 #footer {
   position: absolute;
   bottom: 0;
@@ -295,11 +342,19 @@ body {
 }
 
 #controls-container {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Push buttons to the left and right edges */
+  justify-content: flex-start; /* Start from the left edge */
   width: 100%;
+  height: 90%;
   overflow: hidden;
+}
+
+.button-container {
+  margin: 0 3%;
+  width: 5rem;
+  height: 40%;
 }
 
 .controls-button {
@@ -312,38 +367,153 @@ body {
   border-radius: 4px;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  margin: 0 3%;
-  height: 80%;
-}
-
-/* Media query for screens smaller than 768px */
-@media (max-width: 768px) {
-    .controls-button {
-      /* Adjust button size for smaller screens */
-      width: 3%;
-      height: 60%;
-      margin: 0 2%;
-    }
-  }
-  
-  /* Media query for screens smaller than 576px */
-  @media (max-width: 576px) {
-    .controls-button {
-      /* Further adjust button size for even smaller screens */
-      width: 2.5%;
-      height: 50%;
-      margin: 0 1%;
-    }
-  }
-
-#show-lyrics-button {
-  right: 0;
+  white-space: nowrap;
 }
 
 .controls-button:hover {
   color: #fff;
   border-color: #fff;
 }
+
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+  .responsive-controls {
+    /* Adjust button size for smaller screens */
+    height: 100%;
+    margin: 0;
+    font-size: 0.05rem;
+  }
+  .button-container {
+    width: 50%;
+    margin: 0 0 0 10px;
+  }  
+
+
+}
+
+/* Media query for screens smaller than 576px */
+@media (max-width: 576px) {
+  /* footer */
+  .responsive-controls {
+    /* Further adjust button size for even smaller screens */
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Truncate text with an ellipsis (...) */
+    position: relative; /* Make the button container a relative position */
+  }
+  .button-container {
+    width: 70%;
+    margin: 0 4px;
+  }
+  /* music list */
+  .music-button{
+    margin:0 1px 0 1px;
+    overflow:visible;
+    height: 17.99px;;
+  }
+  .index-wrapper{
+    font-size: 5px;;
+  }
+  .scrollText{
+    font-size: 5px;;
+  }
+  .play-logo{
+    position: relative;
+    height: 17.99px;
+  }
+  .playIcon{
+    position: absolute;
+    top:7px;
+    font-size: 0.2em;
+  }
+}
+
+
+/*********************************************************************************************************/
+
+/* Style for the volume control container */
+#volume-control-container {
+  display: flex;
+  align-items: center;
+  position: relative; /* To position the cat container relative to this container */
+  margin: 15px 15px 0 0;
+  height: 1px;
+}
+
+/* Style for the volume control input */
+#volume-control {
+  width: 100px;
+  height: 6px;
+  background-color: #ccc;
+  -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+  appearance: none;
+  border: none;
+  outline: none;
+  z-index: 1; /* Ensure it's above the cat */
+}
+
+/* Style for the volume control track */
+#volume-control::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 7px;
+  background: #ccc;
+  border-radius: 3px;
+}
+
+/* Style for the volume control thumb (slider handle) */
+#volume-control::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  background: #525253;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+  appearance: none;
+  margin-top: -5px; /* Adjust the margin to move the thumb higher */
+  z-index: 1; /* Ensure it's above the cat */
+}
+
+/* Style for the volume control thumb (slider handle) when active */
+#volume-control::-webkit-slider-thumb:active {
+  background: #525253;
+}
+
+/* Style for the volume control thumb (slider handle) when hovered */
+#volume-control::-webkit-slider-thumb:hover {
+  background: #000000;
+}
+
+/* Style for the cat container */
+#cat-container {
+  position: absolute;
+  width: 40px; /* Adjust the size of the cat container */
+  height: 40px; /* Adjust the size of the cat container */
+  top: -40px; /* Position the cat above the thumb */
+  left: calc(50% - 20px); /* Center the cat horizontally */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease-in-out; /* Fade-in animation */
+}
+
+/* Style for the cat image */
+#cat {
+  width: 80%;
+  height: 80%;
+  position: relative;
+  transition: transform 0.3s ease-in-out; /* Smooth movement animation */
+}
+
+/*********************************************************************************************************/
+
+#lyrics-button-container {
+  right: 20px;
+}
+
+#show-lyrics-button {
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+}
+/*********************************************************************************************************/
 
 #lyrics {
   width: 80%;

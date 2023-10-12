@@ -78,3 +78,5 @@ document.addEventListener("DOMContentLoaded", function () {
         hero.style.opacity = opacity < 0 ? 0 : opacity;
     });
 });
+
+//*********************************************************************************************************/
