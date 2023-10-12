@@ -65,13 +65,13 @@ bgMusic.volume = 0.02;
             playLogoContainer.className = "play-logo-container";
             var playLogo = document.createElement("span");
             playLogo.className = "play-logo";
-            playLogo.innerHTML = '<i class="fas fa-play"></i>';
+            playLogo.innerHTML = '<i class="fas fa-play playIcon"></i>';
             playLogoContainer.appendChild(playLogo);
             playLogo.style.display = "none";
 
             button.appendChild(playLogoContainer);
 
-            //---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
 
             window.addEventListener("resize", updateButtonContent);
 
@@ -103,7 +103,7 @@ bgMusic.volume = 0.02;
             // music button click event
             button.addEventListener("click", function () {
 
-                currentMusicButton.querySelector(".play-logo").innerHTML = '<i class="fas fa-play"></i>';
+                currentMusicButton.querySelector(".play-logo").innerHTML = '<i class="fas fa-play playIcon"></i>';
 
                 var source = this.getAttribute("data-source");
                 var videoSource = this.getAttribute("data-video");
@@ -116,7 +116,7 @@ bgMusic.volume = 0.02;
 
             // Listen for screen width changes and update the button content
 
-            //---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
             // music button mouseover/mouseout event
 
             button.addEventListener("mouseover", function () {
@@ -156,7 +156,7 @@ bgMusic.volume = 0.02;
 
                     bgMusic.play();
 
-                    playLogo.innerHTML = '<i class="fas fa-play"></i>';
+                    playLogo.innerHTML = '<i class="fas fa-play playIcon"></i>';
                     updateButtonContent3();
 
                 } else {
@@ -166,18 +166,13 @@ bgMusic.volume = 0.02;
                         bgMusic.pause();
                         buttonAudio.play();
                         videoPlayer.play();
-                        playLogo.innerHTML = '<i class="fas fa-pause"></i>'; // Change to pause icon
-                        console.log("changeIcon");
+                        playLogo.innerHTML = '<i class="fas fa-pause playIcon"></i>'; // Change to pause icon
                         updateButtonContent3();
                     }else{
                         bgMusic.pause();
                         buttonAudio.play();
                         videoPlayer.play();
-    
-    
-                        playLogo.innerHTML = '<i class="fas fa-pause"></i>'; // Change to pause icon
-    
-    
+                        playLogo.innerHTML = '<i class="fas fa-pause playIcon"></i>'; // Change to pause icon
                         updateButtonContent3();
                     }
 
@@ -244,8 +239,40 @@ bgMusic.volume = 0.02;
 
 })(jQuery);
 
+//*********************************************************************************************************/
 
-
+// JavaScript code to handle scroll animation
+function startScrollAnimation() {
+    var container = document.querySelector(".button-text-wrapper");
+    var text = container.querySelector(".text");
+  
+    // Check if the text is overflowing the container
+    if (text.offsetWidth > container.offsetWidth) {
+      var distance = text.offsetWidth - container.offsetWidth;
+      
+      // Create keyframes dynamically based on the distance
+      var keyframes = `@keyframes scrollText {
+        0% {
+          transform: translateX(0%);
+        }
+        100% {
+          transform: translateX(-${distance}px);
+        }
+      }`;
+  
+      // Create a style element and append keyframes
+      var style = document.createElement("style");
+      style.innerHTML = keyframes;
+      document.head.appendChild(style);
+  
+      // Apply the animation to the text container
+      container.style.animation = "scrollText 10s linear infinite";
+    }
+  }
+  
+  // Call the function when the document is loaded
+  document.addEventListener("DOMContentLoaded", startScrollAnimation);
+  
 //*********************************************************************************************************/
 
 // Listen for messages from calendar and paly music if sound on

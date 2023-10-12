@@ -278,6 +278,7 @@ body {
 }
 
 .text-container {
+  width:80%;
   white-space: nowrap;
   flex-grow: 1; /* Allow the title to grow and take available space */
   overflow: hidden; /* Hide overflow text */
@@ -290,17 +291,24 @@ body {
 }
 
 .scrollText {
-  animation: scrollText 10s linear infinite; /* Adjust the animation duration as needed */
+  white-space: nowrap;
+  position: relative;
+  animation: scrollText 10s linear infinite;
 }
 
 @keyframes scrollText {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0%);
+  }
+  5% {
+    transform: translateX(0%); /* Stop for 0.5 seconds at the beginning */
   }
   100% {
     transform: translateX(-100%);
   }
 }
+
+
 
 #video-container {
   width: 80%;
@@ -385,6 +393,7 @@ body {
 
 /* Media query for screens smaller than 576px */
 @media (max-width: 576px) {
+  /* footer */
   .responsive-controls {
     /* Further adjust button size for even smaller screens */
     height: 100%;
@@ -397,7 +406,27 @@ body {
     width: 70%;
     margin: 0 4px;
   }
-
+  /* music list */
+  .music-button{
+    margin:0 1px 0 1px;
+    overflow:visible;
+    height: 17.99px;;
+  }
+  .index-wrapper{
+    font-size: 5px;;
+  }
+  .scrollText{
+    font-size: 5px;;
+  }
+  .play-logo{
+    position: relative;
+    height: 17.99px;
+  }
+  .playIcon{
+    position: absolute;
+    top:7px;
+    font-size: 0.2em;
+  }
 }
 
 
