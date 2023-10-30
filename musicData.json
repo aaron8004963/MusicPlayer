@@ -28,5 +28,25 @@
         "title": "May_I_be_ur_gf",
         "source": "music/May_I_be_ur_gf.mp3",
         "video": "" 
+    },
+    "2023-10-31": {
+        "title": "Good_night",
+        "source": "music/goodnight.mp3",
+        "video": "" 
+    },
+    "2023-11-01": {
+        "title": "specialz",
+        "source": "music/SPECIALZ.mp3",
+        "video": "" 
+    },
+    "2023-11-02": {
+        "title": "NightDancer",
+        "source": "music/NIGHT_DANCER.mp3",
+        "video": "" 
+    },
+    "2023-11-03": {
+        "title": "So_Sick",
+        "source": "musicSoSick.mp3",
+        "video": "" 
     }
 }
